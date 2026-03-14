@@ -97,14 +97,14 @@ export default function AgentFlowPage() {
             {/* Canvas Draggable Area */}
             <motion.div 
               drag 
-              dragConstraints={containerRef}
+              dragConstraints={{ left: -3000, right: 3000, top: -3000, bottom: 3000 }}
               dragElastic={0}
               dragMomentum={false}
               onDrag={(e, info) => {
                 setPan({ x: pan.x + info.delta.x, y: pan.y + info.delta.y });
               }}
               className="absolute inset-0 origin-top-left"
-              style={{ x: pan.x, y: pan.y, scale: zoom, touchAction: "none" }}
+              style={{ scale: zoom, touchAction: "none" }}
             >
               <div className="absolute top-0 left-0 w-[4000px] h-[3000px]" />
               

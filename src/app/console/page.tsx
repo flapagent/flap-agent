@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
@@ -13,7 +13,12 @@ export default function ConsolePage() {
   const { isAuthenticated, user, openAuthModal } = useAuth();
   const router = useRouter();
   const { t } = useLanguage();
+  const [mounted, setMounted] = useState(false);
   const [chatInput, setChatInput] = useState("");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const [messages, setMessages] = useState<{role: 'ai'|'user', content: string}[]>([
     { role: 'ai', content: "Flap OS Terminal v1.0 initialized. Ready to compile your agent logic. How can I assist you with your DApp or Agent today?" }
   ]);
@@ -75,11 +80,13 @@ export default function ConsolePage() {
     );
   }
 
+  if (!mounted) return null;
+
   return (
-    <main className="min-h-screen pt-20 bg-[#000000] flex flex-col h-screen overflow-hidden">
+    <main className="min-h-screen pt-20 bg-[#000000] flex flex-col h-screen md:overflow-hidden overflow-y-auto">
       <Navbar />
 
-      <div className="flex-1 flex flex-col md:flex-row gap-4 p-4 md:p-6 overflow-hidden h-full">
+      <div className="flex-1 flex flex-col md:flex-row gap-4 p-4 md:p-6 md:overflow-hidden h-full">
         {/* Left Pane: File Manager */}
         <div className="hidden md:flex flex-col w-64 shrink-0 bg-[#0a0a0a] border border-[#ffffff11] rounded-2xl overflow-hidden">
           <div className="bg-[#111111] p-3 border-b border-[#ffffff11] flex items-center gap-2">
@@ -113,7 +120,7 @@ export default function ConsolePage() {
         </div>
 
         {/* Center Pane: Terminal Chat */}
-        <div className="flex-1 bg-[#050505] border border-[#ffffff11] rounded-2xl flex flex-col overflow-hidden relative group">
+        <div className="flex-1 min-h-[500px] md:min-h-0 bg-[#050505] border border-[#ffffff11] rounded-2xl flex flex-col overflow-hidden relative group">
           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#00f0ff03] blur-[150px] rounded-full mix-blend-screen pointer-events-none" />
           
           <div className="bg-[#111111] p-3 border-b border-[#ffffff11] flex justify-between items-center z-10">
