@@ -83,10 +83,10 @@ export default function ConsolePage() {
   if (!mounted) return null;
 
   return (
-    <main className="min-h-screen pt-20 bg-[#000000] flex flex-col h-screen md:overflow-hidden overflow-y-auto">
+    <main className="h-screen pt-20 bg-[#000000] flex flex-col overflow-hidden">
       <Navbar />
 
-      <div className="flex-1 flex flex-col md:flex-row gap-4 p-4 md:p-6 md:overflow-hidden h-full">
+      <div className="flex-1 flex flex-col md:flex-row gap-4 p-4 md:p-6 overflow-y-auto md:overflow-hidden">
         {/* Left Pane: File Manager */}
         <div className="hidden md:flex flex-col w-64 shrink-0 bg-[#0a0a0a] border border-[#ffffff11] rounded-2xl overflow-hidden">
           <div className="bg-[#111111] p-3 border-b border-[#ffffff11] flex items-center gap-2">
@@ -295,7 +295,6 @@ export default function ConsolePage() {
         </div>
 
       </div>
-      <Footer />
     </main>
   );
 }
