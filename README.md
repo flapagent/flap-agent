@@ -385,6 +385,13 @@ The Flap Agent ecosystem will be powered by a native utility token. The **Token 
 
 > 📅 Token details, vesting schedules, and sale tiers will be announced at **[flap.sh](https://flap.sh)**.
 
+## 📝 Changelog & Recent Fixes
+
+### v0.1.1 (Current)
+- **Fix (Console):** Resolved an issue where the `/console` page would render completely blank on mobile devices due to flexbox height clipping (`h-screen` and `overflow-hidden`). Added safe vertical scrolling for smaller viewports.
+- **Fix (Flow):** Corrected Framer Motion `dragConstraints` on the `/flow` visual builder canvas, preventing the canvas from being locked and allowing infinite horizontal/vertical panning.
+- **Feat (i18n):** Full internationalization (EN/ZH) completed, with persistent state navigation across all pages using Next.js `Link` components.
+
 ---
 
 ## 🗺️ Roadmap
