@@ -391,6 +391,41 @@ The Flap Agent ecosystem will be powered by a native utility token. The **Token 
 - **Fix (Console):** Resolved an issue where the `/console` page would render completely blank on mobile devices due to flexbox height clipping (`h-screen` and `overflow-hidden`). Added safe vertical scrolling for smaller viewports.
 - **Fix (Flow):** Corrected Framer Motion `dragConstraints` on the `/flow` visual builder canvas, preventing the canvas from being locked and allowing infinite horizontal/vertical panning.
 - **Feat (i18n):** Full internationalization (EN/ZH) completed, with persistent state navigation across all pages using Next.js `Link` components.
+- **Feat (Release):** Official **Developer SDK (@flapagent/sdk)** and **CLI (@flapagent/cli)** released. Built for seamless autonomous agent integration and deployment.
+
+## 🛠️ Developer SDK & CLI (v0.1.1)
+
+We are excited to release the first modular developer tools for the Flap Network.
+
+### 📦 TypeScript SDK
+Integrated fully with our Grok-4.1-Fast and GPT-4o models.
+```typescript
+import { FlapSDK } from "@flapagent/sdk";
+
+const sdk = new FlapSDK({ apiKey: "flp_live_xxx" });
+
+// Stream chat from a deployed agent
+const response = await sdk.chat({ 
+  agentId: "defi-scanner-v2", 
+  prompt: "Check volume for $BNB" 
+});
+
+console.log(response.content);
+```
+
+### 💻 Flap CLI
+Manage your agents directly from the terminal.
+```bash
+# Register your API key
+flap auth login --key flp_live_xxx
+
+# Deploy a new agent
+flap deploy --agent "MarketWatcher" --model grok --chain bnb
+
+# Stream live agent logs
+flap logs --agent MarketWatcher --follow
+```
+See the [packages/](file:///packages/) directory for full source code.
 
 ---
 
