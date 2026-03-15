@@ -40,6 +40,11 @@ module.exports = {
         "pink-gradient": "linear-gradient(135deg,#ff007f,#ff66b2)",
         "dark-gradient": "linear-gradient(180deg,#0a0a0a,#050505)",
       },
+      zIndex: {
+        "-10": "-10",
+        "-20": "-20",
+        "-30": "-30",
+      },
     },
   },
   plugins: [],

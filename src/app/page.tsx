@@ -48,19 +48,25 @@ export default function Home() {
 
   return (
     <main className="min-h-screen pt-24 pb-12 flex flex-col items-center relative overflow-hidden">
-      {/* Animated living background */}
-      <div className="fixed inset-0 -z-30">
-        <motion.img
-          src="/bg_alive.png"
-          alt=""
-          className="w-full h-full object-cover object-center opacity-40"
-          animate={{ scale: [1, 1.04, 1], filter: ["brightness(0.9)", "brightness(1.2)", "brightness(0.9)"] }}
+      {/* === ANIMATED LIVING BACKGROUND === */}
+      <div className="fixed inset-0" style={{ zIndex: -30 }}>
+        <motion.div
+          className="absolute inset-0"
+          animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+          style={{ transformOrigin: "center" }}
+        >
+          <img
+            src="/bg_alive.png"
+            alt=""
+            className="w-full h-full object-cover object-center"
+            style={{ opacity: 0.45, display: "block" }}
+          />
+        </motion.div>
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.8) 100%)" }} />
       </div>
       {/* Floating glow orbs */}
-      <div className="fixed inset-0 -z-20 pointer-events-none overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: -20 }}>
         <motion.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
           style={{ background: "radial-gradient(circle, #ff007f22 0%, transparent 70%)" }}
