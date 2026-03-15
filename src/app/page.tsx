@@ -2,12 +2,22 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ChatInterface } from "@/components/ChatInterface";
-import { Terminal, Shield, Globe, Rocket, Zap, ChevronLeft, ChevronRight } from "lucide-react";
+import { Shield, Globe, Rocket, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthContext";
 import { useState } from "react";
 import { useLanguage } from "@/i18n";
+
+// Animated particle for the background
+const Particle = ({ x, y, delay, size }: { x: string; y: string; delay: number; size: number }) => (
+  <motion.div
+    className="absolute rounded-full bg-[#ff007f] pointer-events-none"
+    style={{ left: x, top: y, width: size, height: size }}
+    animate={{ opacity: [0, 0.4, 0], scale: [0.5, 1.5, 0.5], y: [0, -40, 0] }}
+    transition={{ duration: 5 + delay, repeat: Infinity, delay, ease: "easeInOut" }}
+  />
+);
 
 export default function Home() {
   const router = useRouter();
@@ -37,7 +47,50 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen pt-24 pb-12 flex flex-col items-center">
+    <main className="min-h-screen pt-24 pb-12 flex flex-col items-center relative overflow-hidden">
+      {/* Animated living background */}
+      <div className="fixed inset-0 -z-30">
+        <motion.img
+          src="/bg_alive.png"
+          alt=""
+          className="w-full h-full object-cover object-center opacity-40"
+          animate={{ scale: [1, 1.04, 1], filter: ["brightness(0.9)", "brightness(1.2)", "brightness(0.9)"] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+      </div>
+      {/* Floating glow orbs */}
+      <div className="fixed inset-0 -z-20 pointer-events-none overflow-hidden">
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
+          style={{ background: "radial-gradient(circle, #ff007f22 0%, transparent 70%)" }}
+          animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.9, 0.5] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-[300px] h-[300px] rounded-full"
+          style={{ background: "radial-gradient(circle, #9d00ff18 0%, transparent 70%)" }}
+          animate={{ scale: [1, 1.2, 1], x: [0, 20, 0], y: [0, -20, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] rounded-full"
+          style={{ background: "radial-gradient(circle, #ff007f15 0%, transparent 70%)" }}
+          animate={{ scale: [1, 1.25, 1], x: [0, -15, 0], y: [0, 15, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        {/* Particles */}
+        {[
+          { x: "10%", y: "20%", delay: 0, size: 4 },
+          { x: "80%", y: "15%", delay: 1.2, size: 3 },
+          { x: "25%", y: "70%", delay: 0.6, size: 5 },
+          { x: "65%", y: "60%", delay: 2, size: 2 },
+          { x: "45%", y: "85%", delay: 0.9, size: 4 },
+          { x: "90%", y: "45%", delay: 1.7, size: 3 },
+          { x: "5%", y: "55%", delay: 2.5, size: 3 },
+          { x: "55%", y: "30%", delay: 1.4, size: 5 },
+        ].map((p, i) => <Particle key={i} {...p} />)}
+      </div>
       <Navbar />
       
       {/* Hero Section */}
@@ -121,7 +174,7 @@ export default function Home() {
           <h2 className="text-3xl md:text-5xl font-bold terminal-text mb-4 glow-text">{t("home.terminal.title")}</h2>
           <p className="text-gray-500 max-w-2xl mx-auto">{t("home.terminal.desc")}</p>
         </div>
-        <ChatInterface />
+        <ChatInterface isDemo={true} />
       </motion.section>
 
       {/* Multi-Modal Showcase */}

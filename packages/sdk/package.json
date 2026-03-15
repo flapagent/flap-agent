@@ -1,0 +1,43 @@
+{
+  "name": "@flapagent/sdk",
+  "version": "0.1.1",
+  "description": "Official TypeScript SDK for the Flap Agent AI infrastructure platform",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "author": "Flap Agent <admin@flapagent.sh>",
+  "homepage": "https://flapagent.sh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flapagent/flap-agent"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "bnb-chain",
+    "web3",
+    "autonomous",
+    "flap-agent",
+    "grok",
+    "gpt4",
+    "llm"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --watch",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  }
+}

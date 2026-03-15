@@ -56,11 +56,44 @@ export default function ConsolePage() {
     }
   };
 
-  const handleChat = (e: React.FormEvent) => {
+  const [isLoadingChat, setIsLoadingChat] = useState(false);
+
+  const handleChat = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!chatInput.trim()) return;
-    setMessages([...messages, { role: 'user', content: chatInput }, { role: 'ai', content: "Processing your request. Compiling logic vectors to the file manager..."}]);
+    if (!chatInput.trim() || isLoadingChat) return;
+
+    const userMsg = { role: 'user' as const, content: chatInput };
+    setMessages(prev => [...prev, userMsg, { role: 'ai', content: '...' }]);
     setChatInput("");
+    setIsLoadingChat(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [...messages, userMsg].map(m => ({ role: m.role === 'ai' ? 'assistant' : m.role, content: m.content })),
+          model: "grok-4-1-fast-reasoning",
+          sessionId: `console_${user?.id}`,
+        }),
+      });
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let fullText = "";
+
+      setMessages(prev => prev.map((m, i) => i === prev.length - 1 ? { ...m, content: "" } : m));
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        fullText += decoder.decode(value);
+        setMessages(prev => prev.map((m, i) => i === prev.length - 1 ? { ...m, content: fullText } : m));
+      }
+    } catch {
+      setMessages(prev => prev.map((m, i) => i === prev.length - 1 ? { ...m, content: "Error: Could not reach the AI. Please check your API configuration." } : m));
+    } finally {
+      setIsLoadingChat(false);
+    }
   };
 
   if (!isAuthenticated) {
