@@ -231,7 +231,7 @@ export const ChatInterface = ({ isDemo = false }: ChatInterfaceProps) => {
             <div className="w-3 h-3 rounded-full bg-[#28c840]" />
           </div>
           <Terminal className="text-[#ff007f] ml-2" size={16} />
-          <span className="text-xs font-bold terminal-text text-gray-300">{isDemo ? "FLAP OS — DEMO TERMINAL" : t("chat.builder.v1")}</span>
+          <span className="text-xs font-bold terminal-text text-gray-300">{t("chat.builder.v1")}</span>
         </div>
         {isDemo && (
           <button

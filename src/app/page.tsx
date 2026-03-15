@@ -48,22 +48,61 @@ export default function Home() {
 
   return (
     <main className="min-h-screen pt-24 pb-12 flex flex-col items-center relative overflow-hidden">
-      {/* === ANIMATED LIVING BACKGROUND === */}
-      <div className="fixed inset-0" style={{ zIndex: -30 }}>
-        <motion.div
-          className="absolute inset-0"
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          style={{ transformOrigin: "center" }}
-        >
-          <img
-            src="/bg_alive.png"
-            alt=""
-            className="w-full h-full object-cover object-center"
-            style={{ opacity: 0.45, display: "block" }}
+      {/* === PURE CSS ANIMATED LIVING BACKGROUND === */}
+      <div className="fixed inset-0" style={{ zIndex: -30, background: "#000000" }}>
+        {/* Deep space star field */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: "radial-gradient(1px 1px at 20% 10%, #ffffff33 0%, transparent 100%), radial-gradient(1px 1px at 60% 30%, #ff007f44 0%, transparent 100%), radial-gradient(1.5px 1.5px at 80% 50%, #ffffff22 0%, transparent 100%), radial-gradient(1px 1px at 40% 70%, #9d00ff33 0%, transparent 100%), radial-gradient(1px 1px at 10% 85%, #ff007f22 0%, transparent 100%), radial-gradient(1px 1px at 70% 90%, #ffffff1a 0%, transparent 100%)",
+          backgroundSize: "600px 600px, 400px 400px, 700px 700px, 500px 500px, 450px 450px, 350px 350px"
+        }} />
+        {/* Central neon dragonfly glow entity */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          {/* Body glow */}
+          <motion.div
+            className="absolute w-[120px] h-[400px] rounded-full"
+            style={{ background: "radial-gradient(ellipse at center, #ff007f55 0%, #ff007f11 50%, transparent 80%)" }}
+            animate={{ opacity: [0.5, 1, 0.5], scaleY: [1, 1.1, 1] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
-        </motion.div>
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.8) 100%)" }} />
+          {/* Left wing top */}
+          <motion.div
+            className="absolute"
+            style={{ width: 280, height: 120, left: "calc(50% - 330px)", top: "calc(50% - 150px)", background: "radial-gradient(ellipse at right, #ff007f33 0%, #9d00ff11 60%, transparent 100%)", borderRadius: "60% 40% 40% 60%", transform: "rotate(-25deg)" }}
+            animate={{ opacity: [0.3, 0.7, 0.3], x: [0, -8, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          />
+          {/* Right wing top */}
+          <motion.div
+            className="absolute"
+            style={{ width: 280, height: 120, left: "calc(50% + 50px)", top: "calc(50% - 150px)", background: "radial-gradient(ellipse at left, #ff007f33 0%, #9d00ff11 60%, transparent 100%)", borderRadius: "40% 60% 60% 40%", transform: "rotate(25deg)" }}
+            animate={{ opacity: [0.3, 0.7, 0.3], x: [0, 8, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          />
+          {/* Left wing bottom */}
+          <motion.div
+            className="absolute"
+            style={{ width: 200, height: 90, left: "calc(50% - 250px)", top: "calc(50% + 20px)", background: "radial-gradient(ellipse at right, #ff007f22 0%, #9d00ff0a 60%, transparent 100%)", borderRadius: "60% 40% 40% 60%", transform: "rotate(15deg)" }}
+            animate={{ opacity: [0.2, 0.5, 0.2], x: [0, -6, 0] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+          {/* Right wing bottom */}
+          <motion.div
+            className="absolute"
+            style={{ width: 200, height: 90, left: "calc(50% + 50px)", top: "calc(50% + 20px)", background: "radial-gradient(ellipse at left, #ff007f22 0%, #9d00ff0a 60%, transparent 100%)", borderRadius: "40% 60% 60% 40%", transform: "rotate(-15deg)" }}
+            animate={{ opacity: [0.2, 0.5, 0.2], x: [0, 6, 0] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+          {/* Core pulse */}
+          <motion.div
+            className="absolute w-8 h-8 rounded-full"
+            style={{ background: "radial-gradient(circle, #ff007f 0%, transparent 70%)" }}
+            animate={{ scale: [1, 2, 1], opacity: [0.8, 0.2, 0.8] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+        {/* Overlay gradient to darken edges */}
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, #00000099 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.2) 70%, rgba(0,0,0,0.85) 100%)" }} />
       </div>
       {/* Floating glow orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: -20 }}>
